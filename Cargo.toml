@@ -4,3 +4,7 @@ members = [
     "terminal_app",
     "game_of_life_logic"
 ]
+
+[workspace.package]
+license = "MIT"
+repository = "https://github.com/St0pfen/game_of_life"

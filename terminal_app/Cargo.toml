@@ -2,6 +2,7 @@
 name = "terminal_app"
 version = "0.1.0"
 edition = "2021"
+license.workspace = true
 
 [dependencies]
 game_of_life_logic = { path = "../game_of_life_logic" }
