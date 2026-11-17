@@ -69,14 +69,14 @@ impl GameOfLife {
         let size = self.size as usize;
         let x = x as usize;
 
-        // Check all 8 directions
-        let directions = vec![
+        // Check all 8 directions (static table — no heap allocation per cell)
+        const DIRECTIONS: [(isize, isize); 8] = [
             (-1, -1), (-1, 0), (-1, 1),
             (0, -1), (0, 1),
             (1, -1), (1, 0), (1, 1)
         ];
 
-        for (dx, dy) in directions {
+        for &(dx, dy) in DIRECTIONS.iter() {
             let mut nx = x as isize + dx;
             let mut ny = y as isize + dy;
             // check if point is on the border -> check the opposite side
