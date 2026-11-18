@@ -1,5 +1,5 @@
 use text_io::scan;
-use text_to_ascii_art::convert;
+use text_to_ascii_art::to_art;
 use game_of_life_logic as gol;
 
 // Function to print the board in the terminal, using the Grid library
@@ -20,7 +20,7 @@ pub fn get_grid_string(game: gol::GameOfLife) -> String {
 
 // Function to print a headline as ASCII art with text_to_ascii_art
 pub fn print_headline(headline: &str) {
-    let ascii_art = convert(headline.to_string());
+    let ascii_art = to_art(headline.to_string(), "standard", 0, 1, 0);
     match ascii_art {
         Ok(art) => println!("{}", art),
         Err(e) => eprintln!("Error while converting to ASCII art: {}", e),
