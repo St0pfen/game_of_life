@@ -101,7 +101,7 @@ impl GameOfLife {
         }
     }
 
-    pub fn check_stuck(self, current_generation: usize, max_generation: usize) -> bool {
+    pub fn check_stuck(&self, current_generation: usize, max_generation: usize) -> bool {
         // max generation reached?
         if current_generation >= max_generation {
             return true;

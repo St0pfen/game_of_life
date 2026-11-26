@@ -47,6 +47,29 @@ mod tests {
     }
 
     #[test]
+    fn check_stuck_reports_generation_limit() {
+        let mut game = create_game(5);
+        game.use_random_board(5);
+
+        assert!(!game.check_stuck(0, 10));
+        assert!(game.check_stuck(10, 10));
+        assert!(game.check_stuck(11, 10));
+    }
+
+    #[test]
+    fn check_stuck_only_borrows_the_game() {
+        let mut game = create_game(3);
+        game.use_random_board(3);
+
+        // Inspecting the state must not consume the game: we still own it
+        // afterwards and can advance it another generation.
+        let _ = game.check_stuck(1, 5);
+        game.update_game();
+        assert_eq!(game.board.len(), 3);
+        assert_eq!(game.game_history.len(), 1);
+    }
+
+    #[test]
     fn rotate_stick() {
         // Create a game with a 5x5 board
         let board = vec![
