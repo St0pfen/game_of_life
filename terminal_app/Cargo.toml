@@ -6,7 +6,6 @@ license.workspace = true
 
 [dependencies]
 game_of_life_logic = { path = "../game_of_life_logic" }
-term_grid = "0.2"
 text_io = "0.1.12"
 text-to-ascii-art="0.1.5"
 clearscreen = "3"

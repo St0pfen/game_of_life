@@ -3,7 +3,7 @@ use text_to_ascii_art::to_art;
 use game_of_life_logic as gol;
 
 // Function to print the board in the terminal, using the Grid library
-pub fn get_grid_string(game: gol::GameOfLife) -> String {
+pub fn get_grid_string(game: &gol::GameOfLife) -> String {
     let mut result = String::new();
     for row in game.board.iter() {
         for &cell in row.iter() {
@@ -42,4 +42,25 @@ pub fn user_creates_custom_board(size: usize) -> Vec<Vec<bool>> {
         }
     }
     return board;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn get_grid_string_only_borrows_the_game() {
+        let mut game = gol::create_game(2);
+        game.insert_cell(0, 1);
+
+        let rendered = get_grid_string(&game);
+
+        // Rendering must not consume the game: we still own it afterwards.
+        assert_eq!(game.board.len(), 2);
+        assert!(game.board[0][1]);
+
+        let lines: Vec<&str> = rendered.lines().collect();
+        assert_eq!(lines.len(), 2);
+        assert_eq!(lines[0], "⬜🟩");
+    }
 }

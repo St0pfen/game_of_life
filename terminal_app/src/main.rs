@@ -104,19 +104,19 @@ fn game_loop(mut game: gol::GameOfLife, sleep_time_in_millis: usize, max_generat
     let mut end = false;
     let mut current_generation = 0;
     while !end {
-        let grid_string = tu::get_grid_string(game.clone());
+        let grid_string = tu::get_grid_string(&game);
         println!("{}", grid_string);
         std::thread::sleep(std::time::Duration::from_millis(sleep_time_in_millis as u64));
         game.update_game();
         current_generation += 1;
-        end = game.clone().check_stuck(current_generation, max_generation);
+        end = game.check_stuck(current_generation, max_generation);
         let _ = clear();
     }
 
     tu::print_headline("Game over!");
     println!("The game has ended after {} generations.", current_generation);
     println!("Last board:");
-    let grid_string = tu::get_grid_string(game);
+    let grid_string = tu::get_grid_string(&game);
     println!("{}", grid_string);
     println!("Press enter to return to continue.");
     let garbage: String;
